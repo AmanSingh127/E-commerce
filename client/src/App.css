@@ -1,0 +1,15 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+nav div{
+    display: flex;
+    gap: 20px;
+}
+
+nav a{
+    text-decoration: none;
+}

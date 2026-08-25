@@ -1,21 +1,29 @@
-import { Link } from 'react-router-dom';
-import './Navbar.css';
-
-const Navbar = () => {
+import React from 'react'
+import {Link} from 'react-router-dom'
+import './Navbar.css'
+function Navbar({cart}) {
   return (
-    <header className="navbar">
-      <div className="container navbar-inner">
-        <Link to="/" className="logo">
-          RIG<span className="logo-accent">.</span>
-        </Link>
-        <nav className="nav-links">
-          <Link to="/products">Shop</Link>
-          <Link to="/builder">PC Builder</Link>
-          <Link to="/cart">Cart</Link>
-        </nav>
-      </div>
-    </header>
-  );
-};
+    <>
+    <nav>
+        <div>
+            <h2>BuildSphere</h2>
+        </div>
 
-export default Navbar;
+        <div className='search'>
+            <input type='text' placeholder='Search Products...'/>
+        </div>
+
+        <div className="nav-links">
+            <Link to="/">Home</Link>
+            <Link to="/products">Products</Link>
+            <Link to="/builder">PC Builder</Link>
+            <Link to="/cart">Cart ({cart.length})</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+      </div>
+    </nav>
+    </>
+  )
+}
+
+export default Navbar

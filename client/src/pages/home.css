@@ -1,46 +1,41 @@
-body{
-    background-color:black;
+.home {
+  text-align: center;
 }
+
 .hero {
-  padding: 72px 0 48px;
+  padding: 80px 20px;
 }
 
 .hero h1 {
-  font-size: 48px;
-  line-height: 1.1;
-  font-weight: 700;
+  font-size: 40px;
 }
 
-.accent-text {
-  color: var(--accent);
+.hero p {
+  font-size: 18px;
 }
 
-.hero-sub {
-  margin-top: 16px;
-  color: var(--text-muted);
-  font-size: 16px;
-  max-width: 480px;
+.hero button {
+  padding: 10px 20px;
+  margin-top: 15px;
 }
 
-.section-title {
-  font-size: 20px;
-  margin-bottom: 20px;
-  padding-top: 32px;
-  border-top: 1px solid var(--border);
+.categories {
+  padding: 40px 20px;
 }
 
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+.category-list {
+  display: flex;
+  justify-content: center;
   gap: 20px;
-  padding-bottom: 64px;
+  margin-top: 20px;
 }
 
-.status-text {
-  color: var(--text-muted);
-  padding: 24px 0;
+.category-list div {
+  padding: 30px;
+  border: 1px solid #ccc;
+  width: 120px;
 }
 
-.status-text.error {
-  color: var(--danger);
+.why-buildsphere {
+  padding: 40px 20px;
 }

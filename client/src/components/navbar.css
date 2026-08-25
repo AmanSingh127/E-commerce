@@ -1,37 +1,35 @@
-.navbar {
-  border-bottom: 1px solid var(--border);
-  background: var(--bg);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.navbar-inner {
+ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+
+  padding: 15px 30px;
+  background-color: #222;
+  color: white;
 }
 
-.logo {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+nav h2 {
+  margin: 0;
 }
 
-.logo-accent {
-  color: var(--accent);
+.search input {
+  width: 250px;
+  padding: 8px 10px;
+
+  border: none;
+  border-radius: 4px;
 }
 
 .nav-links {
   display: flex;
-  gap: 32px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-muted);
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
 }
 
 .nav-links a:hover {
-  color: var(--text);
+  text-decoration: underline;
 }

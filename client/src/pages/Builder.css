@@ -1,0 +1,45 @@
+.builder-page {
+  padding: 30px;
+}
+
+.builder-page h1 {
+  margin-bottom: 10px;
+}
+
+.builder-page > p {
+  margin-bottom: 30px;
+}
+
+.builder-options {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 500px;
+}
+
+.builder-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.builder-item select {
+  padding: 8px;
+  width: 220px;
+}
+
+.builder-summary {
+  margin-top: 30px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 500px;
+}
+
+.builder-summary button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+}

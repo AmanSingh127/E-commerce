@@ -1,0 +1,37 @@
+.auth-page {
+  display: flex;
+  justify-content: center;
+  padding: 50px;
+}
+
+.auth-box {
+  width: 350px;
+  border: 1px solid #ccc;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.auth-box h1 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.auth-box form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-box label {
+  margin-bottom: 5px;
+}
+
+.auth-box input {
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.auth-box button {
+  padding: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+}

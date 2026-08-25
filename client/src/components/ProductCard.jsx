@@ -1,21 +1,17 @@
-import { Link } from 'react-router-dom';
-import './ProductCard.css';
-
-const ProductCard = ({ product }) => {
+import React from 'react'
+import './ProductCard.css'
+function ProductCard({name,category,price,addtoCart}) {
   return (
-    <Link to={`/products/${product.product_id}`} className="product-card">
-      <div className="product-image-wrap">
-        <img src={product.image_url} alt={product.name} className="product-image" />
-      </div>
-      <div className="product-info">
-        <span className="product-category">{product.category}</span>
-        <h3 className="product-name">{product.name}</h3>
-        <div className="product-footer">
-          <span className="product-price">${Number(product.price).toFixed(2)}</span>
-        </div>
-      </div>
-    </Link>
-  );
-};
+    <>
+    <div className='product-card'>
+        <h3>{name}</h3>
+        <p>{category}</p>
+        <p>{price}</p>
 
-export default ProductCard;
+        <button onClick={addtoCart}>Add to Cart</button>
+    </div>
+    </>
+  )
+}
+
+export default ProductCard

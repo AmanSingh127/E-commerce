@@ -1,39 +1,38 @@
-import { useEffect, useState } from 'react';
-import { getProducts } from '../services/api';
-import ProductCard from '../components/ProductCard';
-import './home.css';
-
-const Home = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    getProducts()
-      .then((data) => setProducts(data))
-      .catch((err) => setError('Could not load products. Is the backend running?'))
-      .finally(() => setLoading(false));
-  }, []);
-
+import React from 'react'
+import './Home.css'
+import {Link} from 'react-router-dom'
+function Home() {
   return (
-    <div className="container">
-      <section className="hero">
-        <h1>Build your rig.<br /><span className="accent-text">Own your game.</span></h1>
-        <p className="hero-sub">Gaming gear picked apart, spec by spec — and a builder that checks compatibility for you.</p>
+    <>
+    <div className='home'>
+
+      <section className='hero'>
+        <h1>Build your Dream PC</h1>
+        <p>Find the right components and build your perfect PC with BuildSphere.</p>
+        <Link to='/products'>
+        <button>Explore Products</button>
+        </Link>
       </section>
 
-      <h2 className="section-title">All Products</h2>
+      <section className='categories'>
+        <h2>Shop by categories</h2>
 
-      {loading && <p className="status-text">Loading products...</p>}
-      {error && <p className="status-text error">{error}</p>}
+        <div className='category-list'>
+          <div>CPU</div>
+          <div>GPU</div>
+          <div>RAM</div>
+          <div>Storage</div>
+        </div>
+      </section>
 
-      <div className="product-grid">
-        {products.map((product) => (
-         <ProductCard key={product.product_id} product={product} />
-        ))}
-      </div>
+      <section className='why-buildsphere'>
+          <h2>Why BuildSphere?</h2>
+          <p>BuildSphere helps u find components compatible with your custom builds.</p>
+      </section>
+
     </div>
-  );
-};
+    </>
+  )
+}
 
-export default Home;
+export default Home

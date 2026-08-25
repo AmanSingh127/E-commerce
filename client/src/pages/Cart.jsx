@@ -4,12 +4,12 @@ import './Cart.css'
 function Cart({ cart, setCart }) {
 
   function removefromCart(id) {
-    const updatedCart = cart.filter((product) => product.id !== id)
+    const updatedCart = cart.filter((product) => product.product_id !== id)
     setCart(updatedCart)
   }
 
   const total = cart.reduce((sum, product) => {
-    return sum + product.price
+    return sum + Number(product.price)
   }, 0)
 
   return (
@@ -31,7 +31,7 @@ function Cart({ cart, setCart }) {
                   <p>{product.category}</p>
                   <p>₹{product.price}</p>
 
-                  <button onClick={() => removefromCart(product.id)}>
+                  <button onClick={() => removefromCart(product.product_id)}>
                     Remove
                   </button>
 

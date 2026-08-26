@@ -1,13 +1,18 @@
 .products {
-  padding: 30px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .products h1 {
-  margin-bottom: 25px;
+  text-align: center;
+  margin-bottom: 35px;
+  color: #0f172a;
 }
 
 .product-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  justify-content: center;
+  gap: 24px;
 }

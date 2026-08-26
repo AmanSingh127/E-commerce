@@ -1,8 +1,3 @@
-// import React,{useState} from 'react'
-// import ProductCard from '../components/ProductCard'
-// import './Products.css'
-// function Products({cart,setCart}) {
-
 //   const products=[
 //     {
 //       id:1,
@@ -24,27 +19,7 @@
 //     }
     
 //   ]
-//   return (
-//     <>
-//     <div className='products'>
-//         <h1>Products</h1>
-        
-//         <div className='product-list'>
-//           {products.map((product)=>(
-//             <ProductCard key={product.id}
-//             name={product.name}
-//             category={product.category}
-//             price={product.price}
-//             addtoCart={()=>setCart([...cart,product])}
-//             />
-//           ))}
-//         </div>
-//     </div>
-//     </>
-//   )
-// }
 
-// export default Products
 
 import React, { useState, useEffect } from 'react'
 import ProductCard from '../components/ProductCard'

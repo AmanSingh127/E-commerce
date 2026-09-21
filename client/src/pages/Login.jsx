@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import {useNavigate} from 'react-router-dom'
 import './Login.css'
 
 function Login() {
 
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -11,21 +13,41 @@ function Login() {
 
     fetch('http://localhost:5000/logindata', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
+    headers: {
+    'Content-Type': 'application/json'
+    },
+
+    body: JSON.stringify({
+      email: email,
+      password: password
+
     })
-      .then((response) => response.text())
-      .then((data) => {
-        alert(data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+  })
+
+    .then((response) => {
+     if (!response.ok) {
+      throw new Error('Invalid email or password')
+    }
+
+    return response.json()
+  })
+
+  .then((data) => {
+    console.log(data)
+    alert(data.message)
+
+    localStorage.setItem('token', data.token)
+
+    navigate('/')
+  })
+
+
+  .catch((error) => {
+    console.log(error)
+    alert(error.message)
+
+
+  })
   }
 
   return (

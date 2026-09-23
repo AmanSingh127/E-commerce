@@ -1,17 +1,20 @@
 
 CREATE DATABASE buildsphere;
 USE buildsphere;
+
 CREATE TABLE users (
  user_id INT AUTO_INCREMENT PRIMARY KEY,
  name VARCHAR(100) NOT NULL,
  email VARCHAR (100) NOT NULL UNIQUE,
  password_hash VARCHAR(255) NOT NULL,
  phone VARCHAR(15),
- role ENUM('customer','admin') default 'customer',
+ role ENUM('customer','admin') default 'customer', 
  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 DESCRIBE users;
+
+SELECT * from users;
 
 CREATE table categories (
 	category_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -36,6 +39,12 @@ FOREIGN KEY(category_id) REFERENCES categories(category_id)
 );
 
 DESCRIBE products;
+UPDATE products
+SET stock = 5
+WHERE product_id = 1;
+
+SELECT product_id, name, stock
+FROM products;
 
 CREATE TABLE specifications(
 specification_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -905,3 +914,89 @@ WHERE p.category_id = 3
 ORDER BY p.product_id;
 
 -- GPU → Motherboard
+
+
+SELECT product_id, name, brand, price
+FROM products
+ORDER BY product_id;
+
+
+UPDATE products SET price = 13899 WHERE product_id = 1;   -- Ryzen 5 5600
+UPDATE products SET price = 18999 WHERE product_id = 2;   -- Ryzen 7 5700X
+UPDATE products SET price = 22999 WHERE product_id = 3;   -- Ryzen 5 7600
+UPDATE products SET price = 27999 WHERE product_id = 4;   -- Ryzen 7 7700
+UPDATE products SET price = 35999 WHERE product_id = 5;   -- Ryzen 7 7800X3D
+
+UPDATE products SET price = 14999 WHERE product_id = 6;   -- Core i5-12400F
+UPDATE products SET price = 16999 WHERE product_id = 7;   -- Core i5-14400F
+UPDATE products SET price = 46999 WHERE product_id = 8;   -- Core i7-14700K
+
+UPDATE products SET price = 8999 WHERE product_id = 9;    -- B550M PRO-VDH WIFI
+UPDATE products SET price = 12999 WHERE product_id = 10;  -- TUF Gaming B550-PLUS
+UPDATE products SET price = 15999 WHERE product_id = 11;  -- PRO B650M-A WIFI
+UPDATE products SET price = 18999 WHERE product_id = 12;  -- TUF Gaming B650-PLUS WIFI
+UPDATE products SET price = 20999 WHERE product_id = 13;  -- MAG B650 Tomahawk WIFI
+UPDATE products SET price = 13999 WHERE product_id = 14;  -- PRO B760M-A WIFI DDR4
+UPDATE products SET price = 15999 WHERE product_id = 15;  -- PRO B760M-A WIFI DDR5
+UPDATE products SET price = 26999 WHERE product_id = 16;  -- TUF Gaming Z790-PLUS WIFI
+
+UPDATE products SET price = 4499 WHERE product_id = 17;   -- Vengeance LPX 16GB DDR4 3200
+UPDATE products SET price = 7499 WHERE product_id = 18;   -- Vengeance LPX 32GB DDR4 3200
+UPDATE products SET price = 4499 WHERE product_id = 19;   -- Fury Beast 16GB DDR4 3200
+UPDATE products SET price = 5299 WHERE product_id = 20;   -- Vengeance 16GB DDR5 5600
+UPDATE products SET price = 9499 WHERE product_id = 21;   -- Vengeance 32GB DDR5 6000
+UPDATE products SET price = 8499 WHERE product_id = 22;   -- Fury Beast 32GB DDR5 6000
+UPDATE products SET price = 8999 WHERE product_id = 23;   -- Ripjaws S5 32GB DDR5 6000
+UPDATE products SET price = 10499 WHERE product_id = 24;  -- Trident Z5 RGB 32GB DDR5 6000
+
+UPDATE products SET price = 29999 WHERE product_id = 25;  -- RTX 4060
+UPDATE products SET price = 35999 WHERE product_id = 26;  -- RTX 4060 Ti 8GB
+UPDATE products SET price = 52999 WHERE product_id = 27;  -- RTX 4070
+UPDATE products SET price = 59999 WHERE product_id = 28;  -- RTX 4070 SUPER
+UPDATE products SET price = 74999 WHERE product_id = 29;  -- RTX 4070 Ti SUPER
+UPDATE products SET price = 99999 WHERE product_id = 30;  -- RTX 4080 SUPER
+
+UPDATE products SET price = 27999 WHERE product_id = 31;  -- Radeon RX 7600
+UPDATE products SET price = 39999 WHERE product_id = 32;  -- Radeon RX 7700 XT
+UPDATE products SET price = 49999 WHERE product_id = 33;  -- Radeon RX 7800 XT
+UPDATE products SET price = 54999 WHERE product_id = 34;  -- Radeon RX 7900 GRE
+
+UPDATE products SET price = 8499 WHERE product_id = 35;   -- Samsung 990 EVO 1TB
+UPDATE products SET price = 9999 WHERE product_id = 36;   -- Samsung 990 PRO 1TB
+UPDATE products SET price = 6999 WHERE product_id = 37;   -- WD Black SN770 1TB
+UPDATE products SET price = 8499 WHERE product_id = 38;   -- WD Black SN850X 1TB
+UPDATE products SET price = 5499 WHERE product_id = 39;   -- Crucial P3 Plus 1TB
+UPDATE products SET price = 4999 WHERE product_id = 40;   -- Kingston NV2 1TB
+UPDATE products SET price = 7499 WHERE product_id = 41;   -- Samsung 870 EVO 1TB
+UPDATE products SET price = 6499 WHERE product_id = 42;   -- WD Blue SN580 1TB
+
+UPDATE products SET price = 5999 WHERE product_id = 43;   -- Corsair CX650
+UPDATE products SET price = 7499 WHERE product_id = 44;   -- Corsair RM650e
+UPDATE products SET price = 8499 WHERE product_id = 45;   -- Corsair RM750e
+UPDATE products SET price = 9499 WHERE product_id = 46;   -- MSI MAG A750GL PCIE5
+UPDATE products SET price = 10999 WHERE product_id = 47;  -- Corsair RM850e
+UPDATE products SET price = 9999 WHERE product_id = 48;   -- Cooler Master MWE Gold 850 V2
+
+UPDATE products SET price = 7499 WHERE product_id = 49;   -- Corsair 3000D Airflow
+UPDATE products SET price = 8499 WHERE product_id = 50;   -- Corsair 4000D Airflow
+UPDATE products SET price = 7999 WHERE product_id = 51;   -- NZXT H5 Flow
+UPDATE products SET price = 9999 WHERE product_id = 52;   -- NZXT H6 Flow
+UPDATE products SET price = 10999 WHERE product_id = 53;  -- Lian Li LANCOOL 216
+UPDATE products SET price = 8999 WHERE product_id = 54;   -- Cooler Master TD500 Mesh V2
+
+UPDATE products SET price = 2999 WHERE product_id = 55;   -- DeepCool AK400
+UPDATE products SET price = 4999 WHERE product_id = 56;   -- DeepCool AK620
+UPDATE products SET price = 3999 WHERE product_id = 57;   -- Cooler Master Hyper 212 Halo
+UPDATE products SET price = 8999 WHERE product_id = 58;   -- Noctua NH-D15
+UPDATE products SET price = 7999 WHERE product_id = 59;   -- Corsair H100 RGB
+UPDATE products SET price = 8999 WHERE product_id = 60;
+
+SELECT product_id, name, brand, price
+FROM products
+ORDER BY product_id DESC
+LIMIT 5 OFFSET 5;
+
+
+
+
+

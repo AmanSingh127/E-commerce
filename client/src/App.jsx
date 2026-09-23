@@ -8,6 +8,8 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Cart from './pages/Cart'
 import Builder from './pages/Builder'
+import Admin from './pages/Admin'
+import Footer from './components/Footer'
 
 function App() {
 
@@ -18,12 +20,15 @@ function App() {
 
     <Routes>
         <Route path='/' element={<Home/>}/>
+        <Route path="/admin" element={<Admin />} />
         <Route path="/products" element={ <Products cart={cart} setCart={setCart}/> } />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path='/cart' element={<Cart cart={cart} setCart={setCart} />} />
         <Route path='/builder' element={<Builder/>}/>
     </Routes>
+
+    <Footer />
     </>
   )
 }

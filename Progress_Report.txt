@@ -1,0 +1,347 @@
+================================================================================
+            BUILD SPHERE - PROJECT PROGRESS REPORT
+            Date: 10th September 2026
+================================================================================
+
+This document maps every item mentioned in the "Build Sphere" project report
+against the actual codebase to show what has been COMPLETED, what is PARTIALLY
+done, and what is NOT YET implemented.
+
+
+================================================================================
+1. TECHNOLOGY STACK (Section 1.2 of Report)
+================================================================================
+
+[DONE]  Frontend: React.js (v19) - Set up with Vite build tool
+[DONE]  Backend: Node.js + Express.js (v5)
+[DONE]  Database: MySQL (mysql2 driver connected via connection pool)
+[DONE]  Routing: React Router DOM (v7) for client-side navigation
+[DONE]  Dev Tooling: Nodemon for backend hot-reload, ESLint for linting
+[DONE]  Environment Config: dotenv for environment variables
+[DONE]  CORS: cors middleware configured on backend
+
+NOTE: The report mentions JWT and bcrypt for authentication, but these
+      libraries are NOT installed in package.json yet.
+NOTE: Mongoose is installed in package.json but the project actually uses
+      MySQL (mysql2). The seed.js file still references Mongoose/MongoDB -
+      this is leftover/unused code.
+
+
+================================================================================
+2. THREE-TIER ARCHITECTURE (Section 3 of Report)
+================================================================================
+
+[DONE]  Presentation Layer (Frontend) - React.js app in /client
+[DONE]  Application Layer (Backend) - Express.js server in /server
+[DONE]  Database Layer - MySQL database with BSDatabase.sql schema
+
+Backend Layer Organization:
+[DONE]  Routes layer       -> /server/routes/productRoutes.js
+[DONE]  Controllers layer  -> /server/controllers/productController.js
+[DONE]  Middleware layer    -> /server/middleware/errorMiddleware.js
+[DONE]  Config/DB layer    -> /server/config/db.js
+
+
+================================================================================
+3. DATABASE DESIGN (Section 4 of Report)
+================================================================================
+
+Report claims 11 normalized tables. Actual tables created in BSDatabase.sql:
+
+[DONE]  1. users              - user_id, name, email, password_hash, phone, role, created_at
+[DONE]  2. categories          - category_id, name
+[DONE]  3. products            - product_id, category_id, brand, name, description, price, stock, image_url, status, created_at
+[DONE]  4. specifications      - specification_id, name, unit
+[DONE]  5. product_specifications - product_spec_id, product_id, specification_id, value
+[DONE]  6. addresses           - address_id, user_id, name, phone, street, city, state, pincode, country
+[DONE]  7. cart                - cart_id, user_id, created_at
+[DONE]  8. cart_items          - cart_item_id, cart_id, user_id, quantity
+[DONE]  9. wishlist            - wishlist_id, user_id, product_id, created_at
+[DONE]  10. orders             - order_id, user_id, address_id, total_amount, status, payment_method, payment_status, created_at
+[DONE]  11. order_items        - order_item_id, order_id, product_id, quantity, price_at_purchase
+[DONE]  12. reviews            - review_id, user_id, product_id, rating, comment, created_at
+
+TOTAL TABLES: 12 tables created (report says 11, actual is 12 - specs table is extra)
+
+[DONE]  Foreign key constraints with referential integrity
+[DONE]  ENUM types for status fields (role, product status, order status, payment status)
+[DONE]  CHECK constraint on reviews (rating BETWEEN 1 AND 5)
+
+Database Relationships (Section 4.2):
+[DONE]  Users -> Orders (one-to-many)
+[DONE]  Users -> Cart (one-to-many)
+[DONE]  Users -> Wishlist (one-to-many)
+[DONE]  Users -> Addresses (one-to-many)
+[DONE]  Users -> Reviews (one-to-many)
+[DONE]  Categories -> Products (one-to-many)
+[DONE]  Orders -> Order Items (one-to-many)
+[DONE]  Order Items -> Products (many-to-one)
+[NOT DONE]  Users -> PC Builds (one-to-many) - NO pc_builds table exists in the SQL
+
+Seed Data Inserted:
+[DONE]  8 categories (CPU, Motherboard, RAM, GPU, Storage, PSU, Cabinet, CPU Cooler)
+[DONE]  24 specifications with units
+[DONE]  8 CPUs with full specifications (Socket, TDP, Core Count, etc.)
+[DONE]  8 Motherboards with full specifications (Socket, RAM Type, Form Factor, etc.)
+[DONE]  8 RAM modules with specifications (DDR type, Speed, Capacity)
+[DONE]  10 GPUs with specifications (PCIe, VRAM, Power Draw, GPU Length)
+[DONE]  8 Storage devices with specifications (Storage Type, Capacity, Interface)
+[DONE]  6 PSUs with wattage specifications
+[DONE]  6 Cabinets with specifications (GPU Clearance, Case Type)
+[DONE]  6 CPU Coolers with specifications (Socket Compatibility, Cooler Height)
+
+
+================================================================================
+4. MODULE-WISE IMPLEMENTATION STATUS
+================================================================================
+
+------------------------------------------------------------------------
+MODULE 1 - AUTHENTICATION (Report Section 2)
+------------------------------------------------------------------------
+[PARTIAL]  User Registration (Signup)
+           - Frontend form EXISTS (Signup.jsx) with name, email, password fields
+           - Backend receives data at POST /signupdata
+           - BUT: Only console.logs the data and sends back a text response
+           - NOT DONE: No actual database INSERT into users table
+           - NOT DONE: No password hashing with bcrypt
+           - NOT DONE: bcrypt not even installed
+
+[PARTIAL]  User Login
+           - Frontend form EXISTS (Login.jsx) with email, password fields
+           - Backend receives data at POST /logindata
+           - BUT: Only console.logs the data and sends back a text response
+           - NOT DONE: No actual database query to verify credentials
+           - NOT DONE: No JWT token generation/issuance
+           - NOT DONE: jsonwebtoken package not installed
+
+[NOT DONE]  JWT Token Issuance & Authentication Middleware
+[NOT DONE]  Password Hashing with bcrypt
+[NOT DONE]  Protected Routes (no auth middleware exists)
+[NOT DONE]  User Profile Access
+
+------------------------------------------------------------------------
+MODULE 2 - PRODUCT MANAGEMENT (Report Section 2)
+------------------------------------------------------------------------
+[DONE]  Product Catalog Display
+        - GET /api/products fetches all products with category join
+        - Frontend Products.jsx fetches and displays product list
+
+[DONE]  Category Filtering
+        - Backend supports ?category= query parameter for filtering
+        - SQL query dynamically adds WHERE clause for category
+
+[DONE]  Product Details with Specifications
+        - GET /api/products/:id returns single product with specs
+        - Joins product_specifications and specifications tables
+
+[NOT DONE]  Text/Search Functionality
+            - Navbar has a search input field but it is NON-FUNCTIONAL
+            - No search API endpoint exists
+            - No frontend search logic implemented
+
+[NOT DONE]  Product Images Display
+            - ProductCard component does NOT display images
+            - Only shows name, category, and price
+
+[DONE]  Product CRUD (Admin side - API only)
+        - POST /api/products - Create product
+        - PUT /api/products/:id - Update product
+        - DELETE /api/products/:id - Delete product
+        NOTE: These exist as API endpoints but have NO admin UI and
+              NO authentication/authorization protection
+
+------------------------------------------------------------------------
+MODULE 3 - SHOPPING (Report Section 2)
+------------------------------------------------------------------------
+[PARTIAL]  Cart Management
+           - Cart state managed in React (useState in App.jsx)
+           - Add to cart works (button on ProductCard)
+           - Remove from cart works (button in Cart.jsx)
+           - Cart total calculation works (reduce function)
+           - Cart item count displayed in Navbar
+           - BUT: Cart is CLIENT-SIDE ONLY (React state)
+           - NOT DONE: No backend cart API (no cart routes/controllers)
+           - NOT DONE: Cart does not persist (lost on page refresh)
+           - NOT DONE: Cart quantity update (increment/decrement)
+
+[NOT DONE]  Wishlist Toggle
+            - Database table exists but NO API endpoints
+            - NO frontend wishlist UI
+
+[NOT DONE]  Checkout Processing
+            - Checkout button exists in Cart.jsx but is NON-FUNCTIONAL
+            - No checkout flow, no address selection, no order creation
+
+------------------------------------------------------------------------
+MODULE 4 - ORDERS (Report Section 2)
+------------------------------------------------------------------------
+[NOT DONE]  Order Placement Workflow
+[NOT DONE]  Order Items Snapshot
+[NOT DONE]  Order Status Tracking (Pending, Shipped, Delivered)
+[NOT DONE]  Order History View
+
+NOTE: The orders and order_items tables exist in the database schema,
+      but there are NO backend routes, controllers, or frontend pages
+      for any order functionality.
+
+------------------------------------------------------------------------
+MODULE 5 - REVIEWS (Report Section 2)
+------------------------------------------------------------------------
+[NOT DONE]  Product Ratings (1-5 stars)
+[NOT DONE]  User Review Comments
+
+NOTE: The reviews table exists in the database schema with a CHECK
+      constraint for rating (1-5), but there are NO API endpoints,
+      controllers, or frontend UI for reviews.
+
+------------------------------------------------------------------------
+MODULE 6 - CUSTOM PC BUILDER (Report Section 2 - Main USP)
+------------------------------------------------------------------------
+[PARTIAL]  Step-by-Step Component Selection
+           - Builder.jsx page EXISTS with dropdown selects for:
+             CPU, GPU, RAM, Storage, PSU, Motherboard, CPU Cooler, Cabinet
+           - Products are fetched from API and filtered by category
+           - Each category populates its own dropdown
+
+[NOT DONE]  Compatibility Validation Logic
+            - NO CPU Socket compatibility check
+            - NO DDR Memory Version compatibility check
+            - NO Form Factor compatibility check
+            - NO PSU Wattage sufficiency check
+            - Dropdowns are independent - any combination is allowed
+
+[NOT DONE]  Automatic Total Cost Calculation
+            - Selected components' prices are NOT summed
+            - No price display for individual selections
+            - No total build cost shown
+
+[NOT DONE]  Build Summary Display
+            - "Your Build" section exists but only shows static text
+            - Does NOT list actually selected components
+
+[NOT DONE]  Save PC Builds
+            - No pc_builds table in database
+            - No save build API
+            - "Build PC" button is NON-FUNCTIONAL
+
+------------------------------------------------------------------------
+MODULE 7 - ADMIN DASHBOARD (Report Section 2)
+------------------------------------------------------------------------
+[NOT DONE]  Admin Authentication (separate admin login)
+[NOT DONE]  Inventory Management UI
+[NOT DONE]  Category Management UI
+[NOT DONE]  Order Status Moderation UI
+[NOT DONE]  Product Management UI (CRUD interface)
+
+NOTE: While CRUD API endpoints exist for products, there is NO admin
+      dashboard or admin-facing UI anywhere in the frontend.
+
+
+================================================================================
+5. FRONTEND PAGES & COMPONENTS STATUS
+================================================================================
+
+Pages Implemented:
+[DONE]    Home.jsx        - Hero section, category list, "Why BuildSphere" section
+[DONE]    Products.jsx    - Product listing with API fetch
+[DONE]    Login.jsx       - Login form UI
+[DONE]    Signup.jsx      - Signup form UI
+[DONE]    Cart.jsx        - Cart display with remove and total
+[PARTIAL] Builder.jsx     - Component dropdowns (no validation/summary)
+
+Components Implemented:
+[DONE]    Navbar.jsx      - Navigation with links + cart count + search bar (non-functional search)
+[DONE]    ProductCard.jsx - Displays product name, category, price, add-to-cart button
+
+Pages/Components NOT Implemented:
+[NOT DONE]  Product Details Page (individual product view)
+[NOT DONE]  Order History Page
+[NOT DONE]  User Profile Page
+[NOT DONE]  Wishlist Page
+[NOT DONE]  Admin Dashboard Page
+[NOT DONE]  Checkout/Payment Page
+[NOT DONE]  Address Management Page
+
+
+================================================================================
+6. SCREENSHOTS MENTIONED IN REPORT (Section 7) vs REALITY
+================================================================================
+
+Figure 7.1: User Authentication Interface
+  -> Login.jsx and Signup.jsx exist - PARTIALLY matches (forms exist but don't work properly)
+
+Figure 7.2: Homepage & Product Catalog
+  -> Home.jsx and Products.jsx exist - DONE (basic versions)
+
+Figure 7.3: Product Details Page
+  -> NOT DONE - No individual product detail page exists in the frontend
+
+Figure 7.4: Shopping Cart & Checkout
+  -> Cart.jsx exists (PARTIAL) - Cart displays items but checkout is non-functional
+
+Figure 7.5: Custom PC Builder Interface
+  -> Builder.jsx exists (PARTIAL) - Dropdowns work but no validation/summary/cost
+
+Figure 7.6: Admin Management Dashboard
+  -> NOT DONE - No admin dashboard exists
+
+
+================================================================================
+7. REPORT SECTION 9 - PENDING TASKS & FUTURE ENHANCEMENTS
+================================================================================
+
+Pending Tasks (from report - these are indeed still pending):
+  - All items the report itself lists as pending are confirmed NOT done
+
+Future Enhancements (explicitly listed as not-yet-planned):
+[NOT DONE]  Payment Gateway (Razorpay/Stripe)
+[NOT DONE]  Automated Email Notifications (Nodemailer)
+[NOT DONE]  Side-by-side Component Comparison Tool
+[NOT DONE]  User Profile Invoice Download (PDF)
+
+
+================================================================================
+8. OVERALL PROGRESS SUMMARY
+================================================================================
+
+CATEGORY                          STATUS          COMPLETION
+-----------------------------------------------------------------
+Technology Stack Setup            DONE            ~90%
+Three-Tier Architecture           DONE            ~100%
+Database Schema Design            DONE            ~95% (missing pc_builds table)
+Seed Data Population              DONE            ~100%
+Product API (CRUD)                DONE            ~100%
+Product Listing (Frontend)        DONE            ~80% (no images, no details page)
+Authentication                    PARTIAL         ~20% (forms only, no real auth)
+Cart (Frontend-only)              PARTIAL         ~40% (no persistence, no backend)
+Custom PC Builder                 PARTIAL         ~25% (dropdowns only, no logic)
+Wishlist                          NOT STARTED     ~0%
+Orders                            NOT STARTED     ~0%
+Reviews                           NOT STARTED     ~0%
+Admin Dashboard                   NOT STARTED     ~0%
+Checkout & Payments               NOT STARTED     ~0%
+Search Functionality              NOT STARTED     ~0%
+
+-----------------------------------------------------------------
+ESTIMATED OVERALL PROJECT COMPLETION:    ~30-35%
+-----------------------------------------------------------------
+
+Key Achievements So Far:
+  1. Full database schema designed and populated with real product data
+  2. Backend API for product CRUD operations fully functional
+  3. Frontend scaffolding with all major page routes in place
+  4. Basic product browsing and client-side cart working
+  5. PC Builder page with dynamic category-based dropdowns
+
+Critical Items Still Needed:
+  1. Real authentication (JWT + bcrypt) with database integration
+  2. PC Builder compatibility validation (the main USP of the project)
+  3. Backend APIs for cart, wishlist, orders, reviews
+  4. Order placement and tracking workflow
+  5. Admin dashboard with full CRUD UI
+  6. Search functionality
+  7. Product details page with specifications display
+
+================================================================================
+                        END OF PROGRESS REPORT
+================================================================================

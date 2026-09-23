@@ -1,10 +1,11 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './Navbar.css'
 
 function Navbar({ cart }) {
-
+  
+  const [search, setSearch] = useState('')
   const navigate = useNavigate()
 
   function logout() {
@@ -21,10 +22,17 @@ function Navbar({ cart }) {
         </div>
 
         <div className='search'>
-          <input
-            type='text'
-            placeholder='Search Products...'
-          />
+        <input
+          type="text"
+          placeholder="Search Products..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              navigate(`/products?search=${encodeURIComponent(search)}`)
+            }
+          }}
+        />
         </div>
 
         <div className="nav-links">

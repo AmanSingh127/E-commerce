@@ -4,6 +4,7 @@ require('dotenv').config()
 const bcrypt=require('bcrypt')
 const { connectDB,pool } = require('./config/db')
 const productRoutes = require('./routes/productRoutes')
+const adminRoutes = require('./routes/adminRoutes')
 const { notFound, errorHandler } = require('./middleware/errorMiddleware')
 const jwt=require('jsonwebtoken')
 const authMiddleware = require('./middleware/authMiddleware')
@@ -21,9 +22,9 @@ app.get('/', (req, res) => {
 
 app.use('/api/products', productRoutes)
 
+app.use('/api/admin', adminRoutes)
 
 //sign up
-
 app.post('/signupdata',async (req, res) => {
 
  try {  

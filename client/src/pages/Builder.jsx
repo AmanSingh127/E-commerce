@@ -402,6 +402,68 @@ function Builder() {
   }
 
 
+  async function buildPC() {
+
+  const token = localStorage.getItem('token')
+
+  if (!token) {
+    alert('Please login before building a PC')
+    return
+  }
+
+  const selectedProducts = [
+    selectedCPU,
+    selectedMotherboard,
+    selectedRAM,
+    selectedStorage,
+    selectedGPU,
+    selectedCooler,
+    selectedPSU,
+    selectedCabinet
+  ].filter(Boolean)
+
+  if (selectedProducts.length === 0) {
+    alert('Please select at least one component')
+    return
+  }
+
+  try {
+
+    for (const product_id of selectedProducts) {
+
+      const response = await fetch(
+        'http://localhost:5000/api/cart',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            product_id: Number(product_id),
+            quantity: 1
+          })
+        }
+      )
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message)
+      }
+    }
+
+    alert('PC added to cart!')
+    window.location.href = '/cart'
+
+  } catch (error) {
+
+    console.log(error)
+    alert(error.message)
+
+  }
+}
+
   return (
     <>
 
@@ -693,9 +755,9 @@ function Builder() {
             Choose your components above.
           </p>
 
-          <button>
-            Build PC
-          </button>
+     <button onClick={buildPC}>
+          Build PC
+      </button>
 
         </div>
 

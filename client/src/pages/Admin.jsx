@@ -34,9 +34,8 @@ useEffect(() => {
 
    <nav>
         <Link to="/admin">Dashboard</Link>
-        <Link to="/admin/products">Products</Link>
         <Link to="/admin/orders">Orders</Link>
-        <Link to="/admin/users">Users</Link>
+      
       
     </nav>
 

@@ -22,16 +22,9 @@ function AdminNavbar() {
 
         <Link to="/admin">Dashboard</Link>
     <Link to="/add">Add Products</Link>
-        <Link to="/products">
-          Products
-        </Link>
 
         <Link to="/admin/orders">
           Orders
-        </Link>
-
-        <Link to="/admin/users">
-          Users
         </Link>
 
         <Link to="/">

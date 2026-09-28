@@ -9,6 +9,8 @@ const jwt=require('jsonwebtoken')
 const authMiddleware = require('./middleware/authMiddleware')
 const path=require("path");
 const adminRoutes=require('./routes/adminRoutes');
+const orderRoutes = require('./routes/orderRoutes')
+const cartRoutes = require('./routes/cartRoutes')
 
 connectDB()
 console.log(__dirname);
@@ -21,7 +23,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/products', productRoutes)
-
+app.use('/api/orders', orderRoutes)
+app.use('/api/cart', cartRoutes)
 app.use('/api/admin', adminRoutes)
 
 //sign up

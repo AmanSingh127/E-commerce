@@ -22,6 +22,8 @@ const authMiddleware = (req, res, next) => {
 
         console.log(decoded)
 
+        req.user = decoded
+
         next()
     } catch (error) {
         console.log("JWT ERROR:", error.message)

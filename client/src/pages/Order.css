@@ -1,0 +1,53 @@
+.order-page {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 30px;
+}
+
+.order-page h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.order-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.order-page label {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.order-page input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.order-page input:focus {
+  outline: none;
+  border-color: #333;
+}
+
+.order-page h2 {
+  margin-top: 25px;
+  text-align: right;
+}
+
+.order-page button {
+  margin-top: 15px;
+  padding: 13px;
+  border: none;
+  border-radius: 6px;
+  background: #111;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.order-page button:hover {
+  opacity: 0.85;
+}

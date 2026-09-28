@@ -13,7 +13,8 @@ import Cart from './pages/Cart'
 import Builder from './pages/Builder'
 import Admin from './pages/Admin'
 import AddProducts from './pages/addProduct'
-
+import Order from './pages/Order'
+import AdminOrders from './pages/AdminOrder'
 
 function App() {
         const location = useLocation()
@@ -32,7 +33,7 @@ function App() {
                 <Route path="/" element={<Home />} />
 
                 <Route path="/admin" element={<Admin />} />
-
+                <Route path="/admin/orders" element={<AdminOrders />} />
                 <Route
                     path="/products"
                     element={<Products cart={cart} setCart={setCart} />}
@@ -46,7 +47,10 @@ function App() {
                     path="/cart"
                     element={<Cart cart={cart} setCart={setCart} />}
                 />
-
+                <Route
+                    path="/order"
+                    element={<Order cart={cart} setCart={setCart} />}
+                />
                 <Route path="/builder" element={<Builder />} />
                 <Route path="/add" element={<AddProducts />} />
                 

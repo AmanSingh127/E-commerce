@@ -22,7 +22,7 @@ function AdminNavbar() {
 
         <Link to="/admin">Dashboard</Link>
     <Link to="/add">Add Products</Link>
-        <Link to="/admin/products">
+        <Link to="/products">
           Products
         </Link>
 

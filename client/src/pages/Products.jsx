@@ -14,6 +14,48 @@ function Products({ cart, setCart }) {
       .catch((error) => console.log(error))
   }, [])
 
+  async function addToCart(product) {
+
+    const token = localStorage.getItem('token')
+
+    if (!token) {
+      alert('Please login before adding items to cart')
+      return
+    }
+
+    try {
+
+      const response = await fetch(
+        'http://localhost:5000/api/cart',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            product_id: product.product_id,
+            quantity: 1
+          })
+        }
+      )
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message)
+      }
+
+      alert('Product added to cart')
+
+    } catch (error) {
+
+      console.log(error)
+      alert(error.message)
+
+    }
+  }
+
   const filteredProducts = selectedCategory === ''
     ? products
     : products.filter(
@@ -87,7 +129,7 @@ function Products({ cart, setCart }) {
                   category={product.category}
                   price={product.price}
                   image_url={product.image_url}
-                  addtoCart={() => setCart([...cart, product])}
+                  addtoCart={() => addToCart(product)}
                 />
 
               ))}

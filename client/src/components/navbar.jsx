@@ -40,7 +40,7 @@ function Navbar({ cart }) {
 
         <Link to="/products">Products</Link>
 
-        
+        <Link to="/order">Orders</Link>
 
         <Link to="/builder">PC Builder</Link>
 

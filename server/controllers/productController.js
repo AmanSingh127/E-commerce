@@ -94,15 +94,7 @@ const getProductById = async (req, res) => {
 // @route   POST /api/products
 const createProduct = async (req, res) => {
   try {
-    const {
-      category_id,
-      brand,
-      name,
-      description,
-      price,
-      stock,
-      image_url
-    } = req.body;
+    const { category_id, brand, name, description, price, stock, image_url } = req.body;
 
     const [result] = await pool.query(
       `INSERT INTO products 

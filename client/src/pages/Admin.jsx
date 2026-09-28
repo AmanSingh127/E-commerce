@@ -19,7 +19,7 @@ useEffect(() => {
       setStats(data)
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error)``
     })
 
 }, [])
@@ -37,6 +37,7 @@ useEffect(() => {
         <Link to="/admin/products">Products</Link>
         <Link to="/admin/orders">Orders</Link>
         <Link to="/admin/users">Users</Link>
+      
     </nav>
 
   </aside>

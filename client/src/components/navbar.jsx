@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import './Navbar.css'
 
 function Navbar({ cart }) {
-  
+
   const [search, setSearch] = useState('')
   const navigate = useNavigate()
 
@@ -14,17 +14,16 @@ function Navbar({ cart }) {
   }
 
   return (
-    <>
-      <nav>
+    <nav>
 
-        <div>
-          <h2>BuildSphere</h2>
-        </div>
+      <div>
+        <h2>BuildSphere</h2>
+      </div>
 
-        <div className='search'>
+      <div className='search'>
         <input
-          type="text"
-          placeholder="Search Products..."
+          type='text'
+          placeholder='Search Products...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={(e) => {
@@ -33,35 +32,38 @@ function Navbar({ cart }) {
             }
           }}
         />
-        </div>
+      </div>
 
-        <div className="nav-links">
+      <div className="nav-links">
 
-          <Link to="/">Home</Link>
+        <Link to="/">Home</Link>
 
-          <Link to="/products">Products</Link>
+        <Link to="/products">Products</Link>
 
-          <Link to="/builder">PC Builder</Link>
+        
 
-          <Link to="/cart">
-            Cart ({cart.length})
-          </Link>
+        <Link to="/builder">PC Builder</Link>
 
-          {localStorage.getItem('token') ? (
-            <button onClick={logout}>
-              Logout
-            </button>
-          ) : (
-            <>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
-            </>
-          )}
+        <Link to="/admin">Admin</Link>
 
-        </div>
+        <Link to="/cart">
+          Cart ({cart.length})
+        </Link>
 
-      </nav>
-    </>
+        {localStorage.getItem('token') ? (
+          <button onClick={logout}>
+            Logout
+          </button>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </>
+        )}
+
+      </div>
+
+    </nav>
   )
 }
 

@@ -4,18 +4,18 @@ require('dotenv').config()
 const bcrypt=require('bcrypt')
 const { connectDB,pool } = require('./config/db')
 const productRoutes = require('./routes/productRoutes')
-const adminRoutes = require('./routes/adminRoutes')
 const { notFound, errorHandler } = require('./middleware/errorMiddleware')
 const jwt=require('jsonwebtoken')
 const authMiddleware = require('./middleware/authMiddleware')
+const path=require("path");
+const adminRoutes=require('./routes/adminRoutes');
 
 connectDB()
-
-const app = express()
-
-app.use(cors())
-app.use(express.json())
-
+console.log(__dirname);
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, './uploads'))); // now express will serve static file from uploads folder
 app.get('/', (req, res) => {
   res.send('API is running...')
 })
@@ -105,3 +105,4 @@ const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+
